@@ -42,10 +42,12 @@ output$aedmodelnamesUI = renderUI({
     fluidRow(
       column(
         width = 6,
+        isolate(
         pickerInput(
           inputId = "lfeditloggermodelchoices",
           label = NULL,
           choices = loggermodelsedit()
+        )
         )
       ),
       column(
@@ -407,7 +409,9 @@ observeEvent(
         )
       }
       
-      newloggerdf=data.frame("Logger_Model" = input$addloggermodelnametxt,"ModelID" = random_id(1,6),"Date" = dateentry,"Time" = timeentry,
+      generatemodelid = random_id(1,6)
+      
+      newloggerdf=data.frame("Logger_Model" = input$addloggermodelnametxt,"ModelID" = generatemodelid,"Date" = dateentry,"Time" = timeentry,
                              "DateTime" = datetimeentry,"Date_Format" = input$dateformatadd,"Time_Format" = input$timeformatadd,
                              "AirBP" = input$airbpfieldadd,"AirTemp" = input$airtempfieldadd,"Chlorophylla" = input$chlorophyllafieldadd,
                              "Cond" = input$condfieldadd,"Discharge" = input$dischargefieldadd,"DO" = input$dofieldadd,
@@ -655,7 +659,7 @@ output$lfeditmodeldataconfigUI = renderUI({
           width = 5,
           
           textInput(
-            inputId = "airpfieldedit",
+            inputId = "airbpfieldedit",
             label = "Air Pressure Field",
             value = datafieldsedit$AirBP
           ),
